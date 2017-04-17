@@ -1,0 +1,64 @@
+Training Logistic Regression...
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+L2 Norm: 3.80187897428
+depth weight: 0.194257386193
+position weight: -0.725618446745
+age weight: 0.013771527758
+gender weight: 0.0574155202433
+
+Average CTR testing prediction: 0.0356555065623
+Testing RMSE : 0.171172188527
+------------------------------------------
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+L2 Norm: 9.05716976521
+depth weight: 0.172219387658
+position weight: -0.773576136654
+age weight: -0.0409480151243
+gender weight: 0.104138214772
+
+Average CTR testing prediction: 0.0261660700477
+Testing RMSE : 0.171328286964
+------------------------------------------
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+L2 Norm: 22.291951026
+depth weight: 0.199628426915
+position weight: -0.733647774977
+age weight: -0.0424712450099
+gender weight: 0.210530939684
+
+Average CTR testing prediction: 0.0321574773601
+Testing RMSE : 0.173404951954
+------------------------------------------

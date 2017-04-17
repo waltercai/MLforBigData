@@ -1,0 +1,103 @@
+~/Documents/cse547/hw1/ClickPrediction$ PYTHONPATH=. python analysis/LogisticRegression2.py 
+Training Logistic Regression...
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+0.002, 3.92701405073
+------------------------------------------
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+0.004, 3.53861916825
+------------------------------------------
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+0.006, 3.39718696972
+------------------------------------------
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+0.008, 3.32764090472
+------------------------------------------
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+0.01, 3.28919123764
+------------------------------------------
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+0.012, 3.2669275878
+------------------------------------------
+processed 0% of training data
+processed 19% of training data
+processed 39% of training data
+processed 59% of training data
+processed 79% of training data
+processed 99% of training data
+processed 0% of testing data
+processed 19% of testing data
+processed 39% of testing data
+processed 59% of testing data
+processed 79% of testing data
+processed 99% of testing data
+0.014, 3.25400760814
+------------------------------------------
+lambda range: [ 0.002  0.004  0.006  0.008  0.01   0.012  0.014]
+l2 norms: [3.9270140507337503, 3.5386191682512362, 3.3971869697219135, 3.3276409047158064, 3.2891912376387555, 3.2669275878022446, 3.254007608138171]
+RMSE: [0.17290959465263367, 0.17288911053850783, 0.17289197877613732, 0.1729019852058484, 0.17291445550947251, 0.17292747373984896, 0.1729403340079834]

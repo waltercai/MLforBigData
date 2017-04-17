@@ -1,0 +1,21 @@
+CTR: 0.0336552848438
+baseline RMSE: 0.1730837359
+Unique token count in training: 141063
+Unique token count in testing: 109459
+Unique token count appearing in both: 79261
+Users by age group in training:
+group 0: 8826
+group 1: 79668
+group 2: 162725
+group 3: 307482
+group 4: 213292
+group 5: 146605
+group 6: 63834
+Users by age group in testing:
+group 0: 2021
+group 1: 48783
+group 2: 113818
+group 3: 178416
+group 4: 117326
+group 5: 79635
+group 6: 34908
