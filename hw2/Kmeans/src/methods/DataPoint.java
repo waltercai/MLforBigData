@@ -19,7 +19,7 @@ public class DataPoint {
         for(int i=0; i<this.coord.length; i++){
             dist += Math.pow(this.coord[i] - coord2[i], 2);
         }
-        return(Math.pow(dist, 0.5));
+        return dist;
     }
 
     public void print(){

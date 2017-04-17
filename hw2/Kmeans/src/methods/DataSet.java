@@ -4,13 +4,13 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 
 public class DataSet {
+    public int[] finalGuesses;
+    private double[] finalDistances;
+    public double[][] centroids;
     private HashMap<Integer, DataPoint> points;
-    private int[] currGuesses;
-    private double[] currDistances;
     private int dim;
     private int K;
     private int n;
-    public double[][] centroids;
 
     public DataSet(ArrayList<DataPoint> dataList, int _K){
         this.points = new HashMap<>();
@@ -19,79 +19,99 @@ public class DataSet {
         }
         this.n = this.points.size();
         this.K = _K;
-        this.currGuesses = new int[this.n];
-        this.currDistances = new double[this.n];
-        this.centroids = new double[this.K][this.dim];
         this.dim = this.points.get(0).coord.length;
     }
 
     public void lloyd(){
-        this.randomInit();
+        double[][] coord = this.randomInit();
+
+        int[] newGuess = new int[this.n];
+        int[] oldGuess = null;
+        for(int i=0; i<this.n; i++){newGuess[i] = this.K;}
+        boolean stable = false;
 
         int iterCount = 0;
 
-        boolean stable = false;
-        while(!stable){
-            stable = this.reassign();
-            this.reCenter();
+        stable = false;
+        while (!stable){
+            oldGuess = newGuess;
+            newGuess = this.reassign(coord);
+            coord = this.reCenter(newGuess);
+
+            stable = true;
+            for(int i=0; i<newGuess.length; i++){if(newGuess[i] != oldGuess[i]){
+                stable = false;
+            }}
             iterCount++;
         }
-        this.reCenter();
+
+        this.finalGuesses = newGuess;
+        this.finalDistances = new double[this.n];
+        this.centroids = coord;
+        for(int i=0; i<this.n; i++){
+            this.finalDistances[i] = this.points.get(i).getDist(coord[this.finalGuesses[i]]);
+        }
 //        System.out.println("k: " + this.K + ", iterCount: " + iterCount + ", SS: " + this.getAggSS());
     }
 
-    public void kMeansPlusPlus(){
-        this.randomInitPP();
+    public void kMeansPlusPlus() {
+        double[][] coord = this.randomInitPP();
+
+        int[] newGuess = new int[this.n];
+        int[] oldGuess = null;
+        for(int i=0; i<this.n; i++){newGuess[i] = this.K;}
+        boolean stable = false;
 
         int iterCount = 0;
 
-        boolean stable = false;
-        while(!stable){
-            stable = this.reassign();
-            this.reCenter();
+        stable = false;
+        while (!stable){
+            oldGuess = newGuess;
+            newGuess = this.reassign(coord);
+            coord = this.reCenter(newGuess);
+
+            stable = true;
+            for(int i=0; i<newGuess.length; i++){if(newGuess[i] != oldGuess[i]){
+                stable = false;
+            }}
             iterCount++;
         }
-        this.reCenter();
-//        System.out.println("k: " + this.K + ", iterCount: " + iterCount + ", SS: " + this.getAggSS());
+
+        this.finalGuesses = newGuess;
+        this.finalDistances = new double[this.n];
+        this.centroids = coord;
+        for(int i=0; i<this.n; i++){
+            this.finalDistances[i] = this.points.get(i).getDist(coord[this.finalGuesses[i]]);
+        }
     }
 
-    private boolean reassign(){
-        boolean stable = true;
+    private int[] reassign(double[][] coord){
+        int[] newGuesses = new int[this.n];
+        double[] currDistances = new double[this.n];
+
+        for (int i=0; i<this.n; i++) {
+            currDistances[i] = Double.MAX_VALUE;
+        }
 
         for(int i=0; i<this.n; i++){
             for(int k=0; k<this.K; k++) {
-                double dist = this.points.get(i).getDist(this.centroids[k]);
+                double dist = this.points.get(i).getDist(coord[k]);
                 if(dist < currDistances[i]){
-                    if(this.currGuesses[i] != k){stable = false;}
-                    this.currGuesses[i] = k;
-                    this.currDistances[i] = dist;
+                    newGuesses[i] = k;
+                    currDistances[i] = dist;
                 }
             }
         }
 
-        return stable;
+        return newGuesses;
     }
 
-    private void assign(){
-        for(int i=0; i<this.n; i++){
-            this.currGuesses[i] = 0;
-            this.currDistances[i] = this.points.get(i).getDist(this.centroids[0]);
-
-            for(int k=1; k<this.K; k++) {
-                double dist = this.points.get(i).getDist(this.centroids[k]);
-                if(dist < currDistances[i]){
-                    this.currGuesses[i] = k;
-                }
-            }
-        }
-    }
-
-    private void reCenter(){
+    private double[][] reCenter(int[] guesses){
         double[][] coordSum = new double[this.K][this.dim];
         int[] centrCount = new int[this.K];
 
         for(int i=0; i<this.n; i++){
-            int guess = this.currGuesses[i];
+            int guess = guesses[i];
             for(int d=0; d<this.dim; d++){
                 coordSum[guess][d] += this.points.get(i).coord[d];
             }
@@ -100,37 +120,42 @@ public class DataSet {
 
         for(int k=0; k<this.K; k++){
             for(int d=0; d<this.dim; d++){
-                this.centroids[k][d] = coordSum[k][d] / centrCount[k];
+                coordSum[k][d] = coordSum[k][d] / centrCount[k];
             }
         }
+
+        return(coordSum);
     }
 
-    public void randomInit(){
+    public double[][] randomInit(){
+        double[][] coord = new double[this.K][this.dim];
         int[] range = new int[this.n];
         for(int i=0; i<this.n; i++){
             range[i] = i;
         }
         this.shuffleArray(range);
         for(int k=0; k<this.K; k++){
-            this.centroids[k] = this.points.get(range[k]).coord;
+            coord[k] = this.points.get(range[k]).coord;
         }
-        this.assign();
+
+        return(coord);
     }
 
-    public void randomInitPP(){
+    public double[][] randomInitPP(){
+        double[][] coord = new double[this.K][this.dim];
         int[] range = new int[this.n];
         for(int i=0; i<this.n; i++){
             range[i] = i;
         }
         this.shuffleArray(range);
-        this.centroids[0] = this.points.get(range[0]).coord;
+        coord[0] = this.points.get(range[0]).coord;
 
         for(int k=1; k<this.K; k++){
             double[] minDistArray = new double[this.n];
             for(int i=0; i<this.n; i++) {
-                double minDist = this.points.get(i).getDist(this.centroids[0]);
-                for (int j = 0; j < k; j++) {
-                    double newDist = this.points.get(i).getDist(this.centroids[j]);
+                double minDist = this.points.get(i).getDist(coord[0]);
+                for (int j = 1; j < k; j++) {
+                    double newDist = this.points.get(i).getDist(coord[j]);
                     if (newDist < minDist) {
                         minDist = newDist;
                     }
@@ -138,23 +163,20 @@ public class DataSet {
                 minDistArray[i] = minDist;
             }
 
-            RandomCollection<Integer> items = new RandomCollection<Integer>();
+            RandomCollection<Integer> items = new RandomCollection<>();
             for(int i=0; i<this.n; i++) {
                 items.add(minDistArray[i], i);
             }
             int id = items.next();
-            this.centroids[k] = this.points.get(id).coord;
-
+            coord[k] = this.points.get(id).coord;
         }
-
-        this.assign();
+        return(coord);
     }
 
     public double getAggSS(){
         double sumSS = 0.0;
         for(int i=0; i < this.n; i++){
-            int guess = this.currGuesses[i];
-            sumSS += Math.pow(this.points.get(i).getDist(this.centroids[guess]), 2);
+            sumSS += this.finalDistances[i];
         }
 
         return sumSS;

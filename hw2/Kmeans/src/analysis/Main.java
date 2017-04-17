@@ -15,38 +15,37 @@ public class Main {
         String dataPath = "/Users/waltercai/Documents/cse547/hw2/2DGaussianMixture.csv";
         ArrayList<DataPoint> dataList = parseCSV(dataPath);
 
-//        int[] ks = {2, 3, 5, 10, 15, 20};
-//        for(int k: ks) {
-//            DataSet data = new DataSet(dataList, k);
-//            data.lloyd();
-//            for(int c=0; c<k; c++) {
-//                System.out.println(Arrays.toString(data.centroids[c]) + ",");
-//                System.out.println();
-//            }
-//            System.out.println();
-//        }
+        int[] ks = {2, 3, 5, 10, 15, 20};
+        for(int k: ks) {
+            DataSet data = new DataSet(dataList, k);
+            data.lloyd();
+            for(int c=0; c<k; c++) {
+                System.out.println(Arrays.toString(data.centroids[c]) + ",");
+            }
+            System.out.println();
+        }
 
-//        double[] SSs = new double[20];
-//        for(int i=0; i<20; i++) {
-//            DataSet data = new DataSet(dataList, 3);
-//            data.lloyd();
-//            for(int c=0; c<3; c++) {
-//                System.out.println(Arrays.toString(data.centroids[c]) + ",");
-//            }
-//            SSs[i] = data.getAggSS();
-//        }
-//        System.out.println(Arrays.toString(SSs));
+        double[] SSs = new double[20];
+        for(int i=0; i<20; i++) {
+            DataSet data = new DataSet(dataList, 3);
+            data.lloyd();
+            for(int c=0; c<3; c++) {
+                System.out.println(Arrays.toString(data.centroids[c]) + ",");
+            }
+            SSs[i] = data.getAggSS();
+        }
+        System.out.println(Arrays.toString(SSs));
 
-//        double[] SSspp = new double[20];
-//        for(int i=0; i<20; i++) {
-//            DataSet data = new DataSet(dataList, 3);
-//            data.kMeansPlusPlus();
-//            for(int c=0; c<3; c++) {
-//                System.out.println(Arrays.toString(data.centroids[c]) + ",");
-//            }
-//            SSspp[i] = data.getAggSS();
-//        }
-//        System.out.println(Arrays.toString(SSspp));
+        double[] SSspp = new double[20];
+        for(int i=0; i<20; i++) {
+            DataSet data = new DataSet(dataList, 3);
+            data.kMeansPlusPlus();
+            for(int c=0; c<3; c++) {
+                System.out.println(Arrays.toString(data.centroids[c]) + ",");
+            }
+            SSspp[i] = data.getAggSS();
+        }
+        System.out.println(Arrays.toString(SSspp));
     }
 
     private static ArrayList<DataPoint> parseCSV(String csvPath){
