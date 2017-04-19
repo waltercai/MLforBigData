@@ -1,11 +1,15 @@
 package methods;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class DataPoint {
     public int label;
     public HashMap<Integer, Double> coord;
+
+    public DataPoint(){
+        this.label = -1;
+        this.coord = new HashMap<>();
+    }
 
     public DataPoint(int _label, HashMap<Integer, Double> _coord){
         this.label = _label;

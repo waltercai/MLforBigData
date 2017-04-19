@@ -180,7 +180,7 @@ loss = []
 for i in range(5):
     print("iteration: {}".format(i+1))
     log_resp = e_step(docs=tfidf, log_prior=log_prior, mu=mu, sigma=sigma)
-    [prior, mu, sigma] = m_step(log_resp=log_resp, docs=tfidf)
+    [log_prior, mu, sigma] = m_step(log_resp=log_resp, docs=tfidf)
     
     guess_list = []
     for i in range(num_docs):
