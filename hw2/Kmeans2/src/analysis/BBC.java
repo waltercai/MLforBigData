@@ -10,42 +10,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class Main {
+public class BBC {
     public static void main(String[] args){
-        String dataPath = "/Users/waltercai/Documents/cse547/hw2/2DGaussianMixture.csv";
-        ArrayList<DataPoint> dataList = parseCSV(dataPath);
+        String mtxPath = "/Users/waltercai/Documents/cse547/hw2/bbc/bbc.mtx";
+        String centersPath = "/Users/waltercai/Documents/cse547/hw2/bbc/bbc.centers";
+        String classesPath = "/Users/waltercai/Documents/cse547/hw2/bbc/bbc.classes";
+        DataSet data;
 
-        int[] ks = {2, 3, 5, 10, 15, 20};
-        for(int k: ks) {
-            DataSet data = new DataSet(dataList, k);
-            data.lloyd();
-            for(int c=0; c<k; c++) {
-                System.out.println(Arrays.toString(data.centroids[c]) + ",");
-            }
-            System.out.println();
-        }
-
-        double[] SSs = new double[20];
-        for(int i=0; i<20; i++) {
-            DataSet data = new DataSet(dataList, 3);
-            data.lloyd();
-            for(int c=0; c<3; c++) {
-                System.out.println(Arrays.toString(data.centroids[c]) + ",");
-            }
-            SSs[i] = data.getAggSS();
-        }
-        System.out.println(Arrays.toString(SSs));
-
-        double[] SSspp = new double[20];
-        for(int i=0; i<20; i++) {
-            DataSet data = new DataSet(dataList, 3);
-            data.kMeansPlusPlus();
-            for(int c=0; c<3; c++) {
-                System.out.println(Arrays.toString(data.centroids[c]) + ",");
-            }
-            SSspp[i] = data.getAggSS();
-        }
-        System.out.println(Arrays.toString(SSspp));
+        int k = 5;
+        data = new DataSet(mtxPath, classesPath);
+        data.kmeans(centersPath);
+        System.out.println();
     }
 
     private static ArrayList<DataPoint> parseCSV(String csvPath){
